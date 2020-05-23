@@ -1,3 +1,3 @@
 # Share Message
 
-Share a message with your contact using Facebook Messenger, WhatsApp, Telegram and Skype.
+Share a message with a contact on Facebook Messenger, WhatsApp, Telegram or Skype.
