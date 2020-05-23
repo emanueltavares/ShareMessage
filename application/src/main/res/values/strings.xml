@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">ShareMessage</string>
+    <string name="app_name">Share Message</string>
+    <string name="id">Id</string>
+    <string name="text">Text</string>
+    <string name="send">send</string>
+    <string name="whatsAppName">WhatsApp</string>
+    <string name="telegramName">Telegram</string>
+    <string name="facabookMessengerName">Facebook Messenger</string>
+    <string name="skypeName">Skype</string>
 </resources>
