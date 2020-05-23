@@ -20,18 +20,22 @@ public class WhatsAppMessageSender implements IMessageSender {
 
         PackageManager packageManager = context.getPackageManager();
         if (!MessageSenderUtils.isPackageInstalled(WHATS_APP_PACKAGE_NAME, packageManager)) {
-            Toast.makeText(context, "WhatsApp not Installed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "WhatsApp is not installed!", Toast.LENGTH_SHORT).show();
             return;
         }
 
         // This regular expression removes all characters from the receiver Id, turning it into a phone number
         String phoneNumber = receiverId.replaceAll("[^\\d]", "");
+        if (phoneNumber.trim().isEmpty()) {
+            Toast.makeText(context, "Invalid phone number!", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         String url = "";
         try {
             url = String.format(WHATS_APP_SEND_URL, phoneNumber, URLEncoder.encode(message, "UTF-8"));
         } catch (UnsupportedEncodingException e) {
-            Toast.makeText(context, "Could not encode message to UTF-8", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Could not encode message to UTF-8!", Toast.LENGTH_SHORT).show();
             return;
         }
 
