@@ -1,10 +1,13 @@
-package com.emanueltavares.module;
+package com.emanueltavares.module.implementation;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.widget.Toast;
+
+import com.emanueltavares.module.IMessageSender;
+import com.emanueltavares.module.MessageSenderUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
