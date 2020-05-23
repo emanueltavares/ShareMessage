@@ -11,6 +11,7 @@ import android.widget.RadioGroup;
 
 import com.emanueltavares.module.IMessageSender;
 import com.emanueltavares.module.implementation.FacebookMessengerMessageSender;
+import com.emanueltavares.module.implementation.TelegramMessageSender;
 import com.emanueltavares.module.implementation.WhatsAppMessageSender;
 
 public class MainActivity extends AppCompatActivity {
@@ -69,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
                 messageSender.sendMessageTo(userId, message, this);
                 break;
             case R.id.telegramRadionButton: // Telegram
+                messageSender = new TelegramMessageSender();
+                messageSender.sendMessageTo(userId, message, this);
                 break;
             case R.id.facebookMessengerRadioButton: // Facebook Messenger
                 messageSender = new FacebookMessengerMessageSender();
