@@ -1,2 +1,3 @@
 rootProject.name='ShareMessage'
 include ':application'
+include ':module'
