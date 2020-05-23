@@ -11,7 +11,6 @@ import java.net.URLEncoder;
 
 public class WhatsAppMessageSender implements IMessageSender {
 
-    // TESTNUMBER:+559591742026
     private static final String WHATS_APP_PACKAGE_NAME = "com.whatsapp"; // Whats App Package Name
     private static final String WHATS_APP_SEND_URL = "https://api.whatsapp.com/send?phone=%s&text=%s";
 
