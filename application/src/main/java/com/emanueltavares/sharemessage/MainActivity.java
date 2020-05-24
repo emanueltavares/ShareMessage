@@ -1,15 +1,18 @@
 package com.emanueltavares.sharemessage;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.emanueltavares.module.IMessageSender;
+import com.emanueltavares.module.exception.InvalidMessageException;
+import com.emanueltavares.module.exception.InvalidUserIdException;
+import com.emanueltavares.module.exception.PackageNotInstalledException;
 import com.emanueltavares.module.implementation.FacebookMessengerMessageSender;
 import com.emanueltavares.module.implementation.SkypeMessageSender;
 import com.emanueltavares.module.implementation.TelegramMessageSender;
@@ -19,9 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText inputUserId;
     private EditText inputMessage;
-    private Button buttonSendMessage;
     private RadioGroup senderProviderRadioGroup;
-    private IMessageSender messageSender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Configure Button Send Message
-        buttonSendMessage = findViewById(R.id.buttonSendMessage);
+        Button buttonSendMessage = findViewById(R.id.buttonSendMessage);
         buttonSendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,23 +66,31 @@ public class MainActivity extends AppCompatActivity {
 
         String userId = inputUserId.getText().toString();
         String message = inputMessage.getText().toString();
+        IMessageSender messageSender = null;
+
         switch (senderProviderRadioGroup.getCheckedRadioButtonId()) {
             case R.id.whatsAppRadioButton: // Whats App
                 messageSender = new WhatsAppMessageSender();
-                messageSender.sendMessageTo(userId, message, this);
                 break;
             case R.id.telegramRadionButton: // Telegram
                 messageSender = new TelegramMessageSender();
-                messageSender.sendMessageTo(userId, message, this);
                 break;
             case R.id.facebookMessengerRadioButton: // Facebook Messenger
                 messageSender = new FacebookMessengerMessageSender();
-                messageSender.sendMessageTo(userId, message, this);
                 break;
             case R.id.skypeRadioButton: // Skype
                 messageSender = new SkypeMessageSender();
-                messageSender.sendMessageTo(userId, message, this);
                 break;
+        }
+
+        try {
+            messageSender.sendMessageTo(userId, message, this);
+        } catch (PackageNotInstalledException e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+
+            // Open google play to install package
+        } catch (InvalidUserIdException | InvalidMessageException e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 }
