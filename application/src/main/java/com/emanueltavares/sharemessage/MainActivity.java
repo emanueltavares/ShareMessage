@@ -11,6 +11,7 @@ import android.widget.RadioGroup;
 
 import com.emanueltavares.module.IMessageSender;
 import com.emanueltavares.module.implementation.FacebookMessengerMessageSender;
+import com.emanueltavares.module.implementation.SkypeMessageSender;
 import com.emanueltavares.module.implementation.TelegramMessageSender;
 import com.emanueltavares.module.implementation.WhatsAppMessageSender;
 
@@ -78,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
                 messageSender.sendMessageTo(userId, message, this);
                 break;
             case R.id.skypeRadioButton: // Skype
+                messageSender = new SkypeMessageSender();
+                messageSender.sendMessageTo(userId, message, this);
                 break;
         }
     }
