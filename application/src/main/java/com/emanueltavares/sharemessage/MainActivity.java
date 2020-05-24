@@ -1,5 +1,7 @@
 package com.emanueltavares.sharemessage;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -87,10 +89,18 @@ public class MainActivity extends AppCompatActivity {
             messageSender.sendMessageTo(userId, message, this);
         } catch (PackageNotInstalledException e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
-
             // Open google play to install package
+            openMarket(messageSender.getSenderPackageName());
         } catch (InvalidUserIdException | InvalidMessageException e) {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void openMarket(String packageName) {
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packageName)));
+        } catch (android.content.ActivityNotFoundException e) {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + packageName)));
         }
     }
 }
